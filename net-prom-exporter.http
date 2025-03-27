@@ -1,6 +1,0 @@
-@net_prom_exporter_HostAddress = http://localhost:5285
-
-GET {{net_prom_exporter_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
