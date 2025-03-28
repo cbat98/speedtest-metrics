@@ -9,6 +9,7 @@ static class SpeedTest
             speedtestCli.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"speedtest");
             speedtestCli.StartInfo.Arguments = "--format=json --progress=no --accept-license --accept-gdpr";
             speedtestCli.StartInfo.RedirectStandardOutput = true;
+            speedtestCli.StartInfo.RedirectStandardError = true;
 
             speedtestCli.Start();
             speedtestCli.WaitForExit();
