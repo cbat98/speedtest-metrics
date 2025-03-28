@@ -6,7 +6,7 @@ static class SpeedTest
 
         using (var speedtestCli = new System.Diagnostics.Process())
         {
-            speedtestCli.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"speedtest.exe");
+            speedtestCli.StartInfo.FileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"speedtest");
             speedtestCli.StartInfo.Arguments = "--format=json --progress=no --accept-license --accept-gdpr";
             speedtestCli.StartInfo.RedirectStandardOutput = true;
 
