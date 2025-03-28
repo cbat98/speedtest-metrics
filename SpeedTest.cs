@@ -2,8 +2,6 @@ static class SpeedTest
 {
     public static string Run()
     {
-        Console.WriteLine("Running speedtest..");
-
         var cliOutput = "";
 
         using (var speedtestCli = new System.Diagnostics.Process())
@@ -24,7 +22,7 @@ static class SpeedTest
 
         var bytesToMbps = (float)8 / 1000 / 1000;
 
-        Console.WriteLine($"Server: {results.server.name} - Download: {results.download.bandwidth * bytesToMbps}Mbps - Upload: {results.upload.bandwidth * bytesToMbps}Mbps");
+        Console.WriteLine($"[{results.timestamp}] - Server: {results.server.name} - Download: {results.download.bandwidth * bytesToMbps}Mbps - Upload: {results.upload.bandwidth * bytesToMbps}Mbps");
 
         return cliOutput;
     }
