@@ -41,6 +41,8 @@ public class MetricsService
 
     public void Populate()
     {
+        SpeedTest.Run();
+
         _sampleCounter.WithLabels("success").Inc(42);
         _sampleCounter.WithLabels("failed").Inc(7);
 
