@@ -13,23 +13,6 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-app.Use(async (context, next) =>
-{
-    if (context.Request.Path == "/metrics")
-    {
-        var metricsService = app.Services.GetService<MetricsService>();
-
-        if (metricsService is null)
-            return;
-
-        metricsService.Populate();
-        await Metrics.DefaultRegistry.CollectAndExportAsTextAsync(context.Response.Body, context.RequestAborted);
-
-        return;
-    }
-    await next();
-});
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,6 +20,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapGet("/", () => "Hello, world"!);
-app.MapGet("/speedtest", () => SpeedTest.Run());
+app.MapGet("/metrics", async (MetricsService metricsService) =>
+{
+    metricsService.Populate();
+
+    var ms = new MemoryStream();
+    await Metrics.DefaultRegistry.CollectAndExportAsTextAsync(ms).ConfigureAwait(false);
+    ms.Position = 0;
+
+    var sr = new StreamReader(ms);
+    return await sr.ReadToEndAsync().ConfigureAwait(false);
+});
 
 app.Run();
