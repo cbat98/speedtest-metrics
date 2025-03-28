@@ -36,8 +36,6 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
 app.MapGet("/", () => "Hello, world"!);
 app.MapGet("/speedtest", () => SpeedTest.Run());
 
