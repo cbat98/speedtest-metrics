@@ -6,6 +6,8 @@ public class MetricsService
     private readonly Gauge _sampleGauge;
     private readonly Histogram _sampleHistogram;
 
+    private readonly Gauge _sampleLabelGauge;
+
     public MetricsService()
     {
         _sampleCounter = Metrics.CreateCounter(
@@ -27,6 +29,14 @@ public class MetricsService
             {
                 Buckets = new[] { 0.1, 0.5, 1.0, 2.0 }
             });
+
+        _sampleLabelGauge = Metrics.CreateGauge(
+            "sample_data_table",
+            "Sample data to populate a table",
+            new GaugeConfiguration
+            {
+                LabelNames = new[] { "labelOne", "labelTwo", "labelThree" }
+            });
     }
 
     public void Populate()
@@ -39,6 +49,8 @@ public class MetricsService
         _sampleHistogram.Observe(0.3);
         _sampleHistogram.Observe(0.8);
         _sampleHistogram.Observe(1.5);
+
+        _sampleLabelGauge.WithLabels("123", "456", "789").Set(1);
     }
 }
 
