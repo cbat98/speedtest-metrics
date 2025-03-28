@@ -20,10 +20,6 @@ static class SpeedTest
 
         var results = System.Text.Json.JsonSerializer.Deserialize<SpeedTestResults>(cliOutput);
 
-        var bytesToMbps = (float)8 / 1000 / 1000;
-
-        Console.WriteLine($"[{results.timestamp}] - Server: {results.server.name} - Download: {results.download.bandwidth * bytesToMbps}Mbps - Upload: {results.upload.bandwidth * bytesToMbps}Mbps");
-
         return cliOutput;
     }
 }
