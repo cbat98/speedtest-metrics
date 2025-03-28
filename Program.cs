@@ -19,6 +19,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}] - {context.Connection.RemoteIpAddress} - {context.Request.Method} - {context.Request.Path}");
+    await next();
+});
+
 app.MapGet("/", () => "Hello, world"!);
 app.MapGet("/metrics", async (MetricsService metricsService) =>
 {
