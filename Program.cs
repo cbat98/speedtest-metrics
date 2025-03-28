@@ -4,8 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 Metrics.SuppressDefaultMetrics();
 
-var metricsService = new MetricsService();
-builder.Services.AddSingleton(metricsService);
+builder.Services.AddSingleton<MetricsService>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
