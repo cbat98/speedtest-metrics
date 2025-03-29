@@ -1,6 +1,9 @@
 static class SpeedTest
 {
-    public static string Run()
+    public static int LatestDownloadBandwidth { get; internal set; } = 0;
+    public static int LatestUploadBandwidth { get; internal set; } = 0;
+
+    public static void Run()
     {
         var cliOutput = "";
 
@@ -19,9 +22,20 @@ static class SpeedTest
             speedtestCli.Close();
         }
 
-        var results = System.Text.Json.JsonSerializer.Deserialize<SpeedTestResults>(cliOutput);
+        var results = new SpeedTestResults();
 
-        return cliOutput;
+        try
+        {
+            results = System.Text.Json.JsonSerializer.Deserialize<SpeedTestResults>(cliOutput);
+        }
+        catch
+        {
+            LatestDownloadBandwidth = 0;
+            LatestUploadBandwidth = 0;
+        }
+
+        LatestDownloadBandwidth = results?.download?.bandwidth ?? 0;
+        LatestUploadBandwidth = results?.upload?.bandwidth ?? 0;
     }
 }
 

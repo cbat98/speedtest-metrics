@@ -36,5 +36,13 @@ app.MapGet("/metrics", async (MetricsService metricsService) =>
     var sr = new StreamReader(ms);
     return await sr.ReadToEndAsync().ConfigureAwait(false);
 });
+app.MapGet("/speed", () =>
+{
+    return new
+    {
+        downloadMbps = (float)SpeedTest.LatestDownloadBandwidth * 8 / 1000000,
+        uploadMbps = (float)SpeedTest.LatestUploadBandwidth * 8 / 1000000
+    };
+});
 
 app.Run();
