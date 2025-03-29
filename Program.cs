@@ -38,6 +38,8 @@ app.MapGet("/metrics", async (MetricsService metricsService) =>
 });
 app.MapGet("/speed", () =>
 {
+    SpeedTest.Run();
+
     return new
     {
         ping = SpeedTest.LatestPing,
