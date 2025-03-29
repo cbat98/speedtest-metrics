@@ -1,0 +1,7 @@
+services:
+  exporter:
+    build:
+      dockerfile: "./Dockerfile"
+    ports:
+      - 5203:8080
+    restart: unless-stopped
