@@ -40,6 +40,7 @@ app.MapGet("/speed", () =>
 {
     return new
     {
+        ping = SpeedTest.LatestPing,
         downloadMbps = (float)SpeedTest.LatestDownloadBandwidth * 8 / 1000000,
         uploadMbps = (float)SpeedTest.LatestUploadBandwidth * 8 / 1000000
     };

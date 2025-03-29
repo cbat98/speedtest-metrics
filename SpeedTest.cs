@@ -1,5 +1,6 @@
 static class SpeedTest
 {
+    public static double LatestPing { get; internal set; } = 0;
     public static int LatestDownloadBandwidth { get; internal set; } = 0;
     public static int LatestUploadBandwidth { get; internal set; } = 0;
 
@@ -30,10 +31,12 @@ static class SpeedTest
         }
         catch
         {
+            LatestPing = 0;
             LatestDownloadBandwidth = 0;
             LatestUploadBandwidth = 0;
         }
 
+        LatestPing = results?.ping?.latency ?? 0;
         LatestDownloadBandwidth = results?.download?.bandwidth ?? 0;
         LatestUploadBandwidth = results?.upload?.bandwidth ?? 0;
     }
