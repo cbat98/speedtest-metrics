@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    Console.WriteLine($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}] - {context.Connection.RemoteIpAddress} - {context.Request.Method} - {context.Request.Path}");
+    Console.WriteLine($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}] - INFO - {context.Connection.RemoteIpAddress}, {context.Request.Method}, {context.Request.Path}");
     await next();
 });
 

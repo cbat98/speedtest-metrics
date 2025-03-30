@@ -30,8 +30,10 @@ static class SpeedTest
         {
             results = System.Text.Json.JsonSerializer.Deserialize<SpeedTestResults>(cliOutput);
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine($"[{DateTime.Now}] - ERROR - {e.Message}");
+
             LatestPing = 0;
             LatestDownloadBandwidth = 0;
             LatestUploadBandwidth = 0;
